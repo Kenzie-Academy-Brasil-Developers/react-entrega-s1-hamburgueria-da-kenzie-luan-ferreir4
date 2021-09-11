@@ -1,15 +1,18 @@
 .filterContainer{
-  
-  width: 200px;
-  margin: 20px auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  
+  margin: 20px 10px;
+}
+.filterContainer > h3 {
+  margin: 0;
+  margin-bottom: 8px;
+  text-align: center;
 }
 .filterContainer > input {
   padding: 5px;
-  margin: 10px 0;
+  margin: 0;
+  margin-bottom: 8px;
 }
 .filterContainer > button {
   padding: 5px 20px;
@@ -33,11 +36,27 @@
 .App-cart {
   width: 90%;
   padding: 20px 5px 50px;
+  
 }
 
 .App-cart__itemsList {
   text-align: center;
   display: flex;
+  flex-direction: column;
   justify-content: flex-start;
   flex-wrap: wrap;
+
+  padding: 2px;
+  border: 1px solid #2c61c2;
+  border-radius: 10px;
+
+  box-shadow: inset 2px 0px 15px 2px #7193d3;
+}
+
+@media (min-width: 700px) {
+  .App-cart__itemsList {
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
 }

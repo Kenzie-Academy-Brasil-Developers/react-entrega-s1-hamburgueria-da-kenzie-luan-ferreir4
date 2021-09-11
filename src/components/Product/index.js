@@ -1,7 +1,8 @@
 import "./style.css";
 
-export const Product = ({ name, category, price, id, handleClick}) => {
-    return (
+export const Product = ({ name, category, price, id, handleClick }) => {
+    
+  return (
     <div className="productCard">
       <h4>{name}</h4>
       <p>Categoria: {category}</p>

@@ -1,9 +1,8 @@
 import { useState } from "react";
 
 import "./App.css";
-import { Header } from "./components/Header"
+import { Header } from "./components/Header";
 import { MenuContainer } from "./components/MenuContainer";
-
 
 const App = () => {
   const [products, setProducts] = useState([
@@ -21,16 +20,14 @@ const App = () => {
   const [isFiltered, setIsFiltered] = useState(false);
 
   const [currentSale, setCurrentSale] = useState([]);
-  // const [cartTotal, setCartTotal] = useState(0);
 
   const showProducts = (filteredText) => {
     if (filteredText !== "") {
       const filtered = products.filter((item) => {
-        if(item.name === filteredText){
+        if (item.name === filteredText) {
           return item;
-        }
-        else if(item.category === filteredText){
-          return item
+        } else if (item.category === filteredText) {
+          return item;
         }
       });
 
@@ -45,13 +42,13 @@ const App = () => {
 
   const showAll = () => {
     setIsFiltered(false);
+    setFilteredProducts([]);
   };
 
   const handleClick = (id) => {
     const idsList = [];
 
     const newItem = products.find((item) => {
-      console.log(item.id);
       return id === item.id;
     });
 
@@ -64,18 +61,15 @@ const App = () => {
     }
   };
 
-  // const totalPrice = () => {
-  //   const total = currentSale.reduce((total,current)=> current.price + total, 0);
-
-  //   setCartTotal(total);
-  // }
-
   if (isFiltered) {
     return (
       <div className="App">
-        <Header/>
+        <Header />
         <main className="App-main">
           <section className="filterContainer">
+
+          <h3>Resultados</h3>
+
             <input
               type="text"
               value={filteredItem}
@@ -94,15 +88,19 @@ const App = () => {
             handleClick={handleClick}
           />
 
-          <section className="shoppingCart">
+          <section className="App-cart">
             <h2>Carrinho</h2>
 
-            <h5>
-              Total a pagar:{" "}
-              {currentSale.reduce((total, current) => current.price + total, 0)}
-            </h5>
+            <div className="App-cart__price">
+              <h5>Total a pagar:</h5>
+              <p>
+              R$ {currentSale
+                  .reduce((total, current) => current.price + total, 0)
+                  .toFixed(2)}
+              </p>
+            </div>
 
-            <div className="shoppingCart__itemsList">
+            <div className="App-cart__itemsList">
               {currentSale.map((item, index) => {
                 return (
                   <div key={index} className="productCard">
@@ -120,9 +118,10 @@ const App = () => {
   } else {
     return (
       <div className="App">
-        <Header/>
+        <Header />
         <main className="App-main">
           <section className="filterContainer">
+            <h3>Busque por nome ou categoria</h3>
             <input
               type="text"
               value={filteredItem}
@@ -138,10 +137,14 @@ const App = () => {
           <section className="App-cart">
             <h2>Carrinho</h2>
 
-            <h5>
-              Total a pagar:{" "}
-              {currentSale.reduce((total, current) => current.price + total, 0)}
-            </h5>
+            <div className="App-cart__price">
+              <h5>Total a pagar:</h5>
+              <p>
+                R$ {currentSale
+                  .reduce((total, current) => current.price + total, 0)
+                  .toFixed(2)}
+              </p>
+            </div>
 
             <div className="App-cart__itemsList">
               {currentSale.map((item, index) => {
