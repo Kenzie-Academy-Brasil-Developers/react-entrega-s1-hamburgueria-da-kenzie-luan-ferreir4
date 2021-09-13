@@ -4,6 +4,8 @@
 }
 
 .headerTitle{
+    font-family: 'Lobster', cursive;
     margin: 0;
     color: #fff;
+    font-size: 2rem;
 }

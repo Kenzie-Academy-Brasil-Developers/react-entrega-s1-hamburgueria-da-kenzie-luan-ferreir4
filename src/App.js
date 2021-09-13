@@ -104,7 +104,7 @@ const App = () => {
               {currentSale.map((item, index) => {
                 return (
                   <div key={index} className="productCard">
-                    <h3>{item.name}</h3>
+                    <h2>{item.name}</h2>
                     <p>Categoria: {item.category}</p>
                     <p>Preço: {item.price}</p>
                   </div>
