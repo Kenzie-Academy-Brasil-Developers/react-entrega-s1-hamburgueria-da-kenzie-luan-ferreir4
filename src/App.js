@@ -24,15 +24,15 @@ const App = () => {
   const showProducts = (filteredText) => {
     if (filteredText !== "") {
       const filtered = products.filter((item) => {
-        if (item.name === filteredText) {
+        if (item.name === filteredText &&!filteredProducts.includes(item)) {
           return item;
-        } else if (item.category === filteredText) {
+
+        } else if (item.category === filteredText &&!filteredProducts.includes(item)) {
           return item;
         }
       });
 
       setFilteredProducts([...filteredProducts, ...filtered]);
-      console.log(filtered);
 
       setIsFiltered(true);
 
