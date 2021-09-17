@@ -24,10 +24,12 @@ const App = () => {
   const showProducts = (filteredText) => {
     if (filteredText !== "") {
       const filtered = products.filter((item) => {
-        if (item.name === filteredText &&!filteredProducts.includes(item)) {
+        if (item.name === filteredText && !filteredProducts.includes(item)) {
           return item;
-
-        } else if (item.category === filteredText &&!filteredProducts.includes(item)) {
+        } else if (
+          item.category === filteredText &&
+          !filteredProducts.includes(item)
+        ) {
           return item;
         }
       });
@@ -61,107 +63,80 @@ const App = () => {
     }
   };
 
-  if (isFiltered) {
-    return (
-      <div className="App">
-        <Header />
-        <main className="App-main">
-          <section className="filterContainer">
+  return (
+    <div className="App">
+      <Header />
 
-          <h3>Resultados</h3>
+      <main className="App-main">
+        {!isFiltered ? (
+          <>
+            <section className="filterContainer">
+              <h3>Busque por nome ou categoria</h3>
+              <input
+                type="text"
+                value={filteredItem}
+                onChange={(evt) => setfilteredItem(evt.target.value)}
+              />
+              <button onClick={() => showProducts(filteredItem)}>
+                Buscar item
+              </button>
+            </section>
 
-            <input
-              type="text"
-              value={filteredItem}
-              onChange={(evt) => setfilteredItem(evt.target.value)}
+            <MenuContainer products={products} handleClick={handleClick} />
+          </>
+        ) : (
+          <>
+            <section className="filterContainer">
+              <h3>Resultados</h3>
+
+              <input
+                type="text"
+                value={filteredItem}
+                onChange={(evt) => setfilteredItem(evt.target.value)}
+              />
+
+              <button onClick={() => showProducts(filteredItem)}>
+                Buscar item
+              </button>
+
+              <button onClick={showAll}>Mostrar tudo</button>
+            </section>
+
+            <MenuContainer
+              products={filteredProducts}
+              handleClick={handleClick}
             />
+          </>
+        )}
 
-            <button onClick={() => showProducts(filteredItem)}>
-              Buscar item
-            </button>
+        <section className="App-cart">
+          <h2>Carrinho</h2>
 
-            <button onClick={showAll}>Mostrar tudo</button>
-          </section>
+          <div className="App-cart__price">
+            <h5>Total a pagar:</h5>
+            <p>
+              R${" "}
+              {currentSale
+                .reduce((total, current) => current.price + total, 0)
+                .toFixed(2)}
+            </p>
+          </div>
 
-          <MenuContainer
-            products={filteredProducts}
-            handleClick={handleClick}
-          />
-
-          <section className="App-cart">
-            <h2>Carrinho</h2>
-
-            <div className="App-cart__price">
-              <h5>Total a pagar:</h5>
-              <p>
-              R$ {currentSale
-                  .reduce((total, current) => current.price + total, 0)
-                  .toFixed(2)}
-              </p>
-            </div>
-
-            <div className="App-cart__itemsList">
-              {currentSale.map((item, index) => {
-                return (
-                  <div key={index} className="productCard">
-                    <h2>{item.name}</h2>
-                    <p>Categoria: {item.category}</p>
-                    <p>Preço: {item.price}</p>
-                  </div>
-                );
-              })}
-            </div>
-          </section>
-        </main>
-      </div>
-    );
-  } else {
-    return (
-      <div className="App">
-        <Header />
-        <main className="App-main">
-          <section className="filterContainer">
-            <h3>Busque por nome ou categoria</h3>
-            <input
-              type="text"
-              value={filteredItem}
-              onChange={(evt) => setfilteredItem(evt.target.value)}
-            />
-            <button onClick={() => showProducts(filteredItem)}>
-              Buscar item
-            </button>
-          </section>
-
-          <MenuContainer products={products} handleClick={handleClick} />
-
-          <section className="App-cart">
-            <h2>Carrinho</h2>
-
-            <div className="App-cart__price">
-              <h5>Total a pagar:</h5>
-              <p>
-                R$ {currentSale
-                  .reduce((total, current) => current.price + total, 0)
-                  .toFixed(2)}
-              </p>
-            </div>
-
-            <div className="App-cart__itemsList">
-              {currentSale.map((item, index) => {
-                return (
-                  <div key={index} className="productCard">
-                    <h2>{item.name}</h2>
-                    <p>Categoria: {item.category}</p>
-                    <p>Preço: {item.price}</p>
-                  </div>
-                );
-              })}
-            </div>
-          </section>
-        </main>
-      </div>
-    );
-  }
+          <div className="App-cart__itemsList">
+            {currentSale.map((item, index) => {
+              return (
+                <div key={index} className="productCard">
+                  <h2>{item.name}</h2>
+                  <p>Categoria: {item.category}</p>
+                  <p>Preço: {item.price}</p>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      </main>
+    </div>
+  );
 };
 
 export default App;
